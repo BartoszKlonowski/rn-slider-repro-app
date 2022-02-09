@@ -89,11 +89,5 @@ jobs:
           path: ./node_modules
           key: ${{ hashFiles('./package.json') }}
 
-      - name: Pull the compiled sources
-        uses: actions/cache@v2.1.6
-        with:
-          path: ./build
-          key: ${{ hashFiles('./app/manifest.json') }}
-
       - name: Build the Windows OS app
         run: npx react-native run-windows --arch x64 --no-launch --no-deploy
