@@ -91,3 +91,21 @@ jobs:
 
       - name: Build the Windows OS app
         run: npx react-native run-windows --arch x64 --no-launch --no-deploy
+
+  build-android-app:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+
+    - name: Pull the npm dependencies
+      uses: actions/cache@v2.1.6
+      with:
+        path: ./node_modules
+        key: ${{ hashFiles('./package.json') }}
+
+    - run: ./gradlew assembleDebug -Dorg.gradle.logging.level=info
+      working-directory: android
+      name: Build Android apk (debug)
