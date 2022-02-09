@@ -38,8 +38,11 @@ const App = () => {
           }}
         >
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
+            <Text>Edit</Text>
+            <Text style={styles.highlight}>App.js</Text>
+            <Text>
+                To change this screen and then come back to see your edits.
+            </Text>
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
@@ -48,7 +51,7 @@ const App = () => {
             <DebugInstructions />
           </Section>
           <Section title="Learn More">
-            Read the docs to discover what to do next:
+            <Text>Read the docs to discover what to do next:</Text>
           </Section>
           <LearnMoreLinks />
         </View>
@@ -60,19 +63,6 @@ const App = () => {
 const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionDescription: {
-    fontSize: 18,
-    fontWeight: '400',
-    marginTop: 8,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
   },
 });
 
