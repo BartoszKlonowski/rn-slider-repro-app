@@ -121,11 +121,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
 
-      - name: Pull the npm dependencies
-        uses: actions/cache@v2.1.6
-        with:
-          path: ./node_modules
-          key: ${{ hashFiles('./package.json') }}
+      - name: Install node_modules on MacOS machine
+        run: "npm install"
 
       - run: xcode-select -p
 
