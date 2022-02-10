@@ -131,12 +131,4 @@ jobs:
         name: Install pod dependencies
 
       - name: Builds app for iOS platform
-        run: "xcodebuild \
-          -workspace ios/rnSliderReproApp.xcworkspace \
-          -scheme rnSliderReproApp \
-          clean archive \
-          -sdk iphoneos \
-          -configuration Debug \
-          -UseModernBuildSystem=NO \
-          -archivePath $PWD/rnSliderReproApp \
-          CODE_SIGNING_ALLOWED=NO"
+        run: "npx react-native run-ios"
