@@ -72,7 +72,7 @@ jobs:
 
 
   build-windows-app:
-    name: Verify app build on Windows platform
+    name: Verify the app builds for Windows platform
     runs-on: windows-latest
     needs: [install, verify]
 
@@ -93,7 +93,7 @@ jobs:
         run: npx react-native run-windows --arch x64 --no-launch --no-deploy
 
   build-android-app:
-    name: Verify the app build for Android platform
+    name: Verify the app builds for Android platform
     runs-on: windows-latest
     needs: [install, verify]
 
@@ -109,7 +109,8 @@ jobs:
           path: ./node_modules
           key: ${{ hashFiles('./package.json') }}
 
-      - run: cd android; ./gradlew assembleDebug
+      - name: Build the Android OS app
+        run: cd android; ./gradlew assembleDebug
 
   build-iOS-app:
     name: Verify the app builds for iOS platform
@@ -130,5 +131,5 @@ jobs:
         working-directory: ios
         name: Install pod dependencies
 
-      - name: Builds app for iOS platform
+      - name: Builds the iOS app
         run: "npx react-native run-ios"
