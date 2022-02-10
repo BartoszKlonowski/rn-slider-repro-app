@@ -1,0 +1,135 @@
+name: rnSliderReproApp-CI
+
+on: [push]
+
+jobs:
+  install:
+    name: Install dependencies
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+
+      - name: Display tools versions
+        run: npm --version;
+
+      - name: Restore all the packages
+        run: npm ci
+
+      - name: Cache
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('./package.json') }}
+
+
+  verify:
+    name: Verify the sources
+    runs-on: windows-latest
+    needs: install
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+
+      - name: Cache
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('./package.json') }}
+
+      - name: Run ESLint on the sources
+        run: npx eslint .
+
+
+  test:
+    name: Run the unit tests
+    runs-on: windows-latest
+    needs: install
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+
+      - name: Pull the npm dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('./package.json') }}
+
+      - name: Run unit tests
+        run: npx jest
+
+
+  build-windows-app:
+    name: Verify the app builds for Windows platform
+    runs-on: windows-latest
+    needs: [install, verify]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+
+      - name: Pull the npm dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('./package.json') }}
+
+      - name: Build the Windows OS app
+        run: npx react-native run-windows --arch x64 --no-launch --no-deploy
+
+  build-android-app:
+    name: Verify the app builds for Android platform
+    runs-on: windows-latest
+    needs: [install, verify]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+
+      - name: Pull the npm dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: ./node_modules
+          key: ${{ hashFiles('./package.json') }}
+
+      - name: Build the Android OS app
+        run: cd android; ./gradlew assembleDebug
+
+  build-iOS-app:
+    name: Verify the app builds for iOS platform
+    runs-on: macos-latest
+    needs: [install, verify]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+
+      - name: Install node_modules on MacOS machine
+        run: "npm install"
+
+      - run: xcode-select -p
+
+      - run: pod install
+        working-directory: ios
+        name: Install pod dependencies
+
+      - name: Builds the iOS app
+        run: "npx react-native run-ios"

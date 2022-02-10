@@ -35,8 +35,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "babel": {
-    "presets": ["module:metro-react-native-babel-preset"]
   }
 }
