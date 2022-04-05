@@ -46,7 +46,7 @@ jobs:
           key: ${{ hashFiles('./package.json') }}
 
       - name: Run ESLint on the sources
-        run: npx eslint .
+        run: npx eslint ./source/
 
 
   test:
