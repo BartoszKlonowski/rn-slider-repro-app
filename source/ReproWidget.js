@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export class ReproWidget extends React.Component {
   constructor(props) {
@@ -12,18 +12,21 @@ export class ReproWidget extends React.Component {
 
   render() {
     return (
+      <TouchableOpacity style={styles.reproWidget} onPress={() => {
+        this.state.navigation.navigate(
+          String(this.state.issueReproExample),
+          { issue: this.state.issueReproExample }
+        );
+      }}>
       <View>
-        <Button
-          title="press"
-          onPress={() => {
-            this.state.navigation.navigate(
-              String(this.state.issueReproExample),
-              { issue: this.state.issueReproExample }
-            );
-          }}
-        />
         <Text>Navigate to: {this.state.issueReproExample}</Text>
       </View>
+      </TouchableOpacity>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  reproWidget: {
+  }
+})
