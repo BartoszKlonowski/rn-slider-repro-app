@@ -102,7 +102,7 @@ jobs:
           key: ${{ hashFiles('./package.json') }}
 
       - name: Build the Windows OS app
-        run: npx react-native run-windows --arch x64 --no-launch --no-deploy
+        run: npx react-native run-windows --arch x64 --no-launch --no-deploy --logging
 
   build-android-app:
     name: Verify the app builds for Android platform
