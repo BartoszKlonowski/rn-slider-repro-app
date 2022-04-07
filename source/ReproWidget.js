@@ -1,29 +1,71 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { useQuery } from "react-query";
 
-export class ReproWidget extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      navigation: props.navigation,
-      issueReproExample: props.issueReproExample,
-    };
-  }
+export const ReproWidget = ({ navigation, issueNumber }) => {
+  const { isLoading, data } = useQuery(issueNumber, () =>
+    fetch(
+      `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
+    ).then((res) => res.json())
+  );
 
-  render() {
+  if (isLoading) {
     return (
-      <View>
-        <Button
-          title="press"
-          onPress={() => {
-            this.state.navigation.navigate(
-              String(this.state.issueReproExample),
-              { issue: this.state.issueReproExample }
-            );
-          }}
-        />
-        <Text>Navigate to: {this.state.issueReproExample}</Text>
+      <View style={styles.reproWidget}>
+        <Text>Still loading the data...</Text>
       </View>
     );
   }
-}
+
+  const getLabelFromData = () => {
+    const platformLabelKeyword = "platform:";
+    const label = data.labels.find((label) => {
+      return label.name.includes(platformLabelKeyword);
+    });
+    if (label) {
+      return label.name.substring(platformLabelKeyword.length);
+    } else {
+      return "unknown";
+    }
+  };
+
+  return (
+    <TouchableOpacity
+      accessibilityRole="button"
+      style={[
+        styles.reproWidget,
+        { borderLeftColor: data.state === "closed" ? "#8250DF" : "#1A7F37" },
+      ]}
+      onPress={() => {
+        navigation.navigate(String(issueNumber), {
+          issue: issueNumber,
+          url: data.html_url,
+        });
+      }}
+    >
+      <View>
+        <Text style={styles.issueHeader}>
+          {issueNumber}: {data.title}
+        </Text>
+        <Text style={styles.issueBrief}>Platform: {getLabelFromData()}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+const styles = StyleSheet.create({
+  reproWidget: {
+    margin: 20,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderLeftWidth: 10,
+    borderLeftColor: "blue",
+  },
+  issueHeader: {
+    fontWeight: "bold",
+    margin: 5,
+  },
+  issueBrief: {
+    margin: 5,
+  },
+});
