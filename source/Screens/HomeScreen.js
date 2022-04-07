@@ -9,9 +9,7 @@ const queryClient = new QueryClient();
 export function HomeScreen({ navigation }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <View
-        style={styles.mainLayout}
-      >
+      <View style={styles.mainLayout}>
         <Text style={styles.mainIntroText}>
           Select an issue to see the repro example:
         </Text>
@@ -29,9 +27,11 @@ export function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   mainLayout: {
-    flex: 1, alignItems: "stretch", justifyContent: "center",
+    flex: 1,
+    alignItems: "stretch",
+    justifyContent: "center",
   },
   mainIntroText: {
     margin: 20,
-  }
-})
+  },
+});
