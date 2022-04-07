@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { QueryClient, QueryClientProvider } from "react-query";
 import screens from "../ReproExamples/Issues";
 import { ReproWidget } from "../ReproWidget";
@@ -10,9 +10,9 @@ export function HomeScreen({ navigation }) {
   return (
     <QueryClientProvider client={queryClient}>
       <View
-        style={{ flex: 1, alignItems: "stretch", justifyContent: "center" }}
+        style={styles.mainLayout}
       >
-        <Text style={{ margin: 20 }}>
+        <Text style={styles.mainIntroText}>
           Select an issue to see the repro example:
         </Text>
         {screens.map((issue) => (
@@ -26,3 +26,12 @@ export function HomeScreen({ navigation }) {
     </QueryClientProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  mainLayout: {
+    flex: 1, alignItems: "stretch", justifyContent: "center",
+  },
+  mainIntroText: {
+    margin: 20,
+  }
+})
