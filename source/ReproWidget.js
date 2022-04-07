@@ -17,6 +17,18 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
     );
   }
 
+  const getLabelFromData = () => {
+    const platformLabelKeyword = "platform:";
+    const label = data.labels.find((label) => {
+      return label.name.includes(platformLabelKeyword);
+    });
+    if (label) {
+      return label.name.substring(platformLabelKeyword.length);
+    } else {
+      return "unknown";
+    }
+  };
+
   return (
     <TouchableOpacity
       accessibilityRole="button"
@@ -25,12 +37,17 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
         { borderLeftColor: data.state === "closed" ? "#8250DF" : "#1A7F37" },
       ]}
       onPress={() => {
-        navigation.navigate(String(issueNumber), { issue: issueNumber });
+        navigation.navigate(String(issueNumber), {
+          issue: issueNumber,
+          url: data.html_url,
+        });
       }}
     >
       <View>
-        <Text style={styles.issueHeader}>{issueNumber}</Text>
-        <Text style={styles.issueBrief}>Brief info about the issue</Text>
+        <Text style={styles.issueHeader}>
+          {issueNumber}: {data.title}
+        </Text>
+        <Text style={styles.issueBrief}>Platform: {getLabelFromData()}</Text>
       </View>
     </TouchableOpacity>
   );
