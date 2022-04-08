@@ -29,6 +29,8 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
     }
   };
 
+  const platform = getLabelFromData();
+
   return (
     <TouchableOpacity
       accessibilityRole="button"
@@ -37,9 +39,12 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
         { borderLeftColor: data.state === "closed" ? "#8250DF" : "#1A7F37" },
       ]}
       onPress={() => {
-        navigation.navigate(String(issueNumber), {
+        navigation.navigate("Details", {
           issue: issueNumber,
+          title: data.title,
           url: data.html_url,
+          platform: platform,
+          dateCreated: data.created_at,
         });
       }}
     >
@@ -47,7 +52,7 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
         <Text style={styles.issueHeader}>
           {issueNumber}: {data.title}
         </Text>
-        <Text style={styles.issueBrief}>Platform: {getLabelFromData()}</Text>
+        <Text style={styles.issueBrief}>Platform: {platform}</Text>
       </View>
     </TouchableOpacity>
   );
