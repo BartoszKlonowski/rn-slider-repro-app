@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, Linking } from "react-native";
 import { QueryClient, QueryClientProvider } from "react-query";
+import screens from "../ReproExamples/Issues";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,11 @@ export function DetailsScreen({ route }) {
             Created: {new Date(route.params.dateCreated).toDateString()}
           </Text>
         </View>
-        <View style={styles.reproExample}></View>
+        <View style={styles.reproExample}>
+          {screens
+            .find((issue) => issue.name === route.params.issue)
+            .component()}
+        </View>
         <View style={styles.footer}>
           <Text
             style={styles.issueLinkText}
