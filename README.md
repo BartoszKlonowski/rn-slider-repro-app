@@ -93,6 +93,8 @@ const screens = [
 
 Note, that here's the real issue presented, as for non-existing issue, or incorrect number the widget will not appear!
 
+<br/>If you are satisfied with the example of your issue, and you would like to share the exact usage scenario please do create a PR with your implementation!
+
 ---
 
 ## Thank you! ##
