@@ -11,8 +11,14 @@
     </a>
 </p>
 
+
+I maintain the [@react-native-community/slider](https://github.com/callstack/react-native-slider) repository. And very often issues created for the `<Slider/>` require reproduction example and the stable playground to check the specific case.
+<br/>Also it is needed to keep all the reproduction samples well organized and in decent order, so when I reproduce some problem I can always return to it.
+
+Here's where the **RN Slider Repro App** comes in.
+
 ---
-  
+
 ## Installation & Usage ##
 
 This application can be installed by:
