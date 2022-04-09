@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import Slider from '@react-native-community/slider';
+import Slider from "@react-native-community/slider";
 
 export function Issue366() {
   const [changedCount, setChangedCount] = useState(0);
@@ -8,7 +8,7 @@ export function Issue366() {
   const onChange = (value) => {
     setChangedCount(changedCount + 1);
     console.log("onChange.value: ", value);
-  }
+  };
 
   return (
     <View style={styles.mainLayout}>
