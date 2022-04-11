@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 15,
     fontWeight: "600",
-    fontFamily: "Roboto",
+    fontFamily: "Arial",
     color: "black",
   },
   titleText: {
     fontSize: 18,
     fontWeight: "800",
-    fontFamily: "Roboto",
+    fontFamily: "Arial",
     color: "black",
     alignSelf: "center",
   },
