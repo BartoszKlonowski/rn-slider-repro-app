@@ -1,10 +1,14 @@
-import React, { ReactNode } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import Slider, { SliderProps } from '@react-native-community/slider';
+import React, { ReactNode, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Slider, { SliderProps } from "@react-native-community/slider";
 
-type Props = { label: ReactNode; prefix?: ReactNode; unit?: string } & SliderProps;
+type Props = {
+  label: ReactNode;
+  prefix?: ReactNode;
+  unit?: string;
+} & SliderProps;
 
-export function Issue321({
+function InputSlider({
   label,
   prefix,
   minimumValue = 0,
@@ -37,12 +41,26 @@ export function Issue321({
   );
 }
 
+export function Issue321() {
+  const [value, setValue] = useState(0);
+  return (
+    <InputSlider
+      label="title"
+      prefix={"<IconDollar />"}
+      maximumValue={15000}
+      value={value}
+      onValueChange={(val) => setValue(val)}
+      unit="$"
+      step={1000}
+    />
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
-  },
+  container: {},
   title: {},
   labelPrefix: {},
   label: {},
   value: {},
-  slider: {}
-})
+  slider: {},
+});
