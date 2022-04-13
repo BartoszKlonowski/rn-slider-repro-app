@@ -49,7 +49,7 @@ export function Issue321() {
       prefix={"<IconDollar />"}
       maximumValue={15000}
       value={value}
-      onValueChange={(val) => setValue(val)}
+      onValueChange={(val: number) => setValue(val)}
       unit="$"
       step={1000}
     />
