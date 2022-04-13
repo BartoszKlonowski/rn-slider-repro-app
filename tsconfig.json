@@ -6,7 +6,8 @@
     "preserveConstEnums": true,
     "outFile": "../../built/local/tsc.js",
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "node"
   },
   "include": ["source/ReproExamples/Issue321.tsx"],
   "exclude": ["node_modules", "**/*.spec.ts"]
