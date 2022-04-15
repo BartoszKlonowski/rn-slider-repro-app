@@ -8,7 +8,9 @@ export function Issue96() {
 
   return (
     <View style={styles.mainLayout}>
-      <Text style={styles.sliderIntroText}>Slider with default color of Thumb:</Text>
+      <Text style={styles.sliderIntroText}>
+        Slider with default color of Thumb:
+      </Text>
       <Slider
         minimumValue={0}
         maximumValue={100}
@@ -17,7 +19,9 @@ export function Issue96() {
         onValueChange={setDefaultValue}
       />
       <Text>Value: {defaultValue}</Text>
-      <Text style={styles.sliderIntroText}>Slider with custom color of Thumb:</Text>
+      <Text style={styles.sliderIntroText}>
+        Slider with custom color of Thumb:
+      </Text>
       <Slider
         minimumValue={0}
         maximumValue={100}
@@ -40,5 +44,5 @@ const styles = StyleSheet.create({
   sliderIntroText: {
     fontSize: 20,
     margin: 5,
-  }
+  },
 });
