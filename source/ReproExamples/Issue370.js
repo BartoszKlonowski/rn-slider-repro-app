@@ -14,9 +14,6 @@ export function Issue370() {
         Which should be changed to RTL according to the language
       </Text>
       <Slider
-        minimumValue={0}
-        maximumValue={100}
-        step={1}
         value={defaultValue}
         onValueChange={setDefaultValue}
       />
