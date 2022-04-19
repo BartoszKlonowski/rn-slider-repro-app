@@ -1,22 +1,29 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import Slider from "@react-native-community/slider";
 
 export function Issue346() {
   const [defaultValue, setDefaultValue] = useState(0);
 
+  const Img = () => (
+    <Image
+      source={require("./../ReproAssets/Issue346_ThumbImage.png")}
+      accessibilityIgnoresInvertColors={false}
+    />
+  );
   return (
     <View style={styles.mainLayout}>
       <Text style={styles.sliderIntroText}>
-        Slider with default color of Thumb:
+        Slider with Thumb being an Image:
       </Text>
+      <Img />
       <Slider
         style={styles.thumbSlider}
-        thumbImage={require("../icon/bright1.png")}
-        thumbTintColor={"black"}
+        thumbTintColor={"white"}
+        thumbImage={require("./../ReproAssets/Issue346_ThumbImage.png")}
         minimumValue={0}
         maximumValue={1}
-        thumbTouchSize={{ width: 200, height: 200 }}
+        thumbTouchSize={{ width: 100, height: 100 }}
         value={0.65}
         onValueChange={(value) => setDefaultValue(value)}
         minimumTrackTintColor={"white"}
