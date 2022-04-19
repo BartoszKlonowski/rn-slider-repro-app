@@ -7,16 +7,9 @@ export function Issue370() {
 
   return (
     <View style={styles.mainLayout}>
-      <Text style={styles.sliderIntroText}>
-        Slider with default direction:
-      </Text>
-      <Text>
-        Which should be changed to RTL according to the language
-      </Text>
-      <Slider
-        value={defaultValue}
-        onValueChange={setDefaultValue}
-      />
+      <Text style={styles.sliderIntroText}>Slider with default direction:</Text>
+      <Text>Which should be changed to RTL according to the language</Text>
+      <Slider value={defaultValue} onValueChange={setDefaultValue} />
       <Text>Value: {defaultValue}</Text>
     </View>
   );
