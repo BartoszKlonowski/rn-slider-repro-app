@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import Slider from "@react-native-community/slider";
 
 export function Issue227() {
@@ -12,10 +12,6 @@ export function Issue227() {
       <Text style={styles.sliderIntroText}>
         Slider with Thumb being an Image:
       </Text>
-      <Image
-        source={require("./../ReproAssets/Issue346_ThumbImage.png")}
-        accessibilityIgnoresInvertColors={false}
-      />
       <Slider
         style={styles.thumbSlider}
         thumbTintColor={"white"}
@@ -28,8 +24,8 @@ export function Issue227() {
         }}
         value={0.65}
         onValueChange={(value) => setDefaultValue(value)}
-        minimumTrackTintColor={"white"}
-        maximumTrackTintColor={"white"}
+        minimumTrackTintColor={"green"}
+        maximumTrackTintColor={"yellow"}
       />
       <Text>Value: {defaultValue}</Text>
       <View style={styles.touchableInfo}>
