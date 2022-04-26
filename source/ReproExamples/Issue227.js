@@ -22,7 +22,10 @@ export function Issue227() {
         thumbImage={require("./../ReproAssets/Issue346_ThumbImage.png")}
         minimumValue={0}
         maximumValue={1}
-        thumbTouchSize={{ width: touchableAreaWidth, height: touchableAreaHeight }}
+        thumbTouchSize={{
+          width: touchableAreaWidth,
+          height: touchableAreaHeight,
+        }}
         value={0.65}
         onValueChange={(value) => setDefaultValue(value)}
         minimumTrackTintColor={"white"}
