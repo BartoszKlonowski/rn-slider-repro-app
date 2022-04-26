@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { QueryClient, QueryClientProvider } from "react-query";
 import screens from "../ReproExamples/Issues";
 import { ReproWidget } from "../ReproWidget";
@@ -13,13 +14,15 @@ export function HomeScreen({ navigation }) {
         <Text style={styles.mainIntroText}>
           Select an issue to see the repro example:
         </Text>
-        {screens.map((issue) => (
-          <ReproWidget
-            navigation={navigation}
-            issueNumber={issue.name}
-            key={issue.name}
-          />
-        ))}
+        <ScrollView>
+          {screens.map((issue) => (
+            <ReproWidget
+              navigation={navigation}
+              issueNumber={issue.name}
+              key={issue.name}
+            />
+          ))}
+        </ScrollView>
       </View>
     </QueryClientProvider>
   );
