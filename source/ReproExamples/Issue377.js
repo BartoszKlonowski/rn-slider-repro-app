@@ -4,7 +4,7 @@ import Slider from "@react-native-community/slider";
 
 export function Issue377() {
   const initialValue = 50;
-  const [currentValue, setCurrentValue] = useState(0);
+  const [currentValue, setCurrentValue] = useState(50);
 
   console.log("Starting slider example with value: ", initialValue);
   const onChange = (value) => {
@@ -19,7 +19,7 @@ export function Issue377() {
         onValueChange={onChange}
         minimumValue={0}
         maximumValue={100}
-        value={0}
+        value={currentValue}
       />
       <Text>Current value: {currentValue}</Text>
     </View>
