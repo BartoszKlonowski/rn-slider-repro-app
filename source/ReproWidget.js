@@ -1,60 +1,22 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useQuery } from "react-query";
+import React, { Suspense, useTransition } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import Issue from "./Issue";
 
-export const ReproWidget = ({ navigation, issueNumber }) => {
-  const { isLoading, data } = useQuery(issueNumber, () =>
-    fetch(
-      `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
-    ).then((res) => res.json())
-  );
-
-  if (isLoading) {
+class Spinner extends React.Component {
+  render() {
     return (
       <View style={styles.reproWidget}>
         <Text>Still loading the data...</Text>
       </View>
     );
   }
+}
 
-  const getLabelFromData = () => {
-    const platformLabelKeyword = "platform:";
-    const label = data.labels.find((label) => {
-      return label.name.includes(platformLabelKeyword);
-    });
-    if (label) {
-      return label.name.substring(platformLabelKeyword.length);
-    } else {
-      return "unknown";
-    }
-  };
-
-  const platform = getLabelFromData();
-
+export const ReproWidget = ({ navigation, issueNumber }) => {
   return (
-    <TouchableOpacity
-      accessibilityRole="button"
-      style={[
-        styles.reproWidget,
-        { borderLeftColor: data.state === "closed" ? "#8250DF" : "#1A7F37" },
-      ]}
-      onPress={() => {
-        navigation.navigate("Details", {
-          issue: issueNumber,
-          title: data.title,
-          url: data.html_url,
-          platform: platform,
-          dateCreated: data.created_at,
-        });
-      }}
-    >
-      <View>
-        <Text style={styles.issueHeader}>
-          {issueNumber}: {data.title}
-        </Text>
-        <Text style={styles.issueBrief}>Platform: {platform}</Text>
-      </View>
-    </TouchableOpacity>
+    <Suspense fallback={<Spinner/>}>
+      <Issue issueNumber={issueNumber} navigation={navigation}/>
+    </Suspense>
   );
 };
 
