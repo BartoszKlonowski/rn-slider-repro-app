@@ -6,13 +6,15 @@ function data(issueNumber) {
     setTimeout(() => {
       fetch(
         `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
-      ).then((response) => response.json())
-      .then(data => {
-        console.log(`${JSON.stringify(issueNumber)} || resolving`);
-        resolve({
-          resultData: data
-        });
-      });
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          resolve({
+            resultData: data,
+          });
+          return data;
+        })
+        .catch((error) => error.message);
     }, 1000);
   });
 }
@@ -21,34 +23,29 @@ function fetchData(issueNumber) {
   let resultData;
   let status = "loading";
 
-  let fetching = data(issueNumber).then(
-    result => {
-      console.log(`${JSON.stringify(issueNumber)} || Data fetched correctly: ${result}`);
+  let fetching = data(issueNumber)
+    .then((result) => {
       status = "loaded";
-      console.log(`${JSON.stringify(issueNumber)} || and status is: ${status}`);
       resultData = result;
-    }
-  );
+      return result;
+    })
+    .catch((error) => error.message);
 
   return {
     read() {
-      console.log(`${JSON.stringify(issueNumber)} || status is: ${status}`);
-      if(status === "loading") {
-        console.log(`${JSON.stringify(issueNumber)} || throwing fetcher`);
+      if (status === "loading") {
         throw fetching;
       } else {
-        console.log(`${JSON.stringify(issueNumber)} || returning data: ${resultData}`);
         return resultData;
       }
-    }
-  }
+    },
+  };
 }
 
-export default Issue = (issueNumber, navigation) => {
-  console.log("starting issueNumber: ", issueNumber);
+const Issue = (issueNumber, navigation) => {
   const data = fetchData(issueNumber).read();
 
-  getLabelFromData = () => {
+  const getLabelFromData = () => {
     const platformLabelKeyword = "platform:";
     const label = data.labels.find((label) => {
       return label.name.includes(platformLabelKeyword);
@@ -60,7 +57,7 @@ export default Issue = (issueNumber, navigation) => {
     }
   };
 
-  return(
+  return (
     <TouchableOpacity
       accessibilityRole="button"
       style={[
@@ -85,8 +82,7 @@ export default Issue = (issueNumber, navigation) => {
       </View>
     </TouchableOpacity>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
   reproWidget: {
@@ -104,3 +100,5 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 });
+
+export default Issue;

@@ -1,4 +1,4 @@
-import React, { Suspense, useTransition } from "react";
+import React, { Suspense } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Issue from "./Issue";
 
@@ -14,8 +14,8 @@ class Spinner extends React.Component {
 
 export const ReproWidget = ({ navigation, issueNumber }) => {
   return (
-    <Suspense fallback={<Spinner/>}>
-      <Issue issueNumber={issueNumber} navigation={navigation}/>
+    <Suspense fallback={<Spinner />}>
+      <Issue issueNumber={issueNumber} navigation={navigation} />
     </Suspense>
   );
 };
@@ -27,12 +27,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderLeftWidth: 10,
     borderLeftColor: "blue",
-  },
-  issueHeader: {
-    fontWeight: "bold",
-    margin: 5,
-  },
-  issueBrief: {
-    margin: 5,
   },
 });
