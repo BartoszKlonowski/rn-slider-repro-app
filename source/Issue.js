@@ -1,23 +1,43 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
+function data(issueNumber) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      fetch(
+        `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
+      ).then((response) => response.json())
+      .then(data => {
+        console.log(`${JSON.stringify(issueNumber)} || resolving`);
+        resolve({
+          resultData: data
+        });
+      });
+    }, 1000);
+  });
+}
+
 function fetchData(issueNumber) {
   let resultData;
   let status = "loading";
-  let promise = fetch(
-    `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
-  ).then((response) => response.json());
-  let fetching = promise
-  .then(data => {
-    resultData = data;
-    status = "loaded"
-  });
+
+  let fetching = data(issueNumber).then(
+    result => {
+      console.log(`${JSON.stringify(issueNumber)} || Data fetched correctly: ${result}`);
+      status = "loaded";
+      console.log(`${JSON.stringify(issueNumber)} || and status is: ${status}`);
+      resultData = result;
+    }
+  );
 
   return {
     read() {
+      console.log(`${JSON.stringify(issueNumber)} || status is: ${status}`);
       if(status === "loading") {
+        console.log(`${JSON.stringify(issueNumber)} || throwing fetcher`);
         throw fetching;
       } else {
+        console.log(`${JSON.stringify(issueNumber)} || returning data: ${resultData}`);
         return resultData;
       }
     }
@@ -25,6 +45,7 @@ function fetchData(issueNumber) {
 }
 
 export default Issue = (issueNumber, navigation) => {
+  console.log("starting issueNumber: ", issueNumber);
   const data = fetchData(issueNumber).read();
 
   getLabelFromData = () => {
