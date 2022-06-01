@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useQuery } from "react-query";
+import Loading from "./Components/Loading";
 
 export const ReproWidget = ({ navigation, issueNumber }) => {
   const { isLoading, data } = useQuery(issueNumber, () =>
@@ -11,9 +12,7 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
 
   if (isLoading) {
     return (
-      <View style={styles.reproWidget}>
-        <Text>Still loading the data...</Text>
-      </View>
+      <Loading />
     );
   }
 
