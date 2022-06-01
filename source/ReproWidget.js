@@ -16,7 +16,9 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
     setTimeout(() => {
       setIsAnimating(false);
     }, loadingAnimationDurationMs);
-    return <Loading duration={loadingAnimationDurationMs} number={issueNumber}/>;
+    return (
+      <Loading duration={loadingAnimationDurationMs} number={issueNumber} />
+    );
   }
 
   const getLabelFromData = () => {
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderLeftWidth: 10,
     borderLeftColor: "blue",
-    width: "90%"
+    width: "90%",
   },
   issueHeader: {
     fontWeight: "bold",
