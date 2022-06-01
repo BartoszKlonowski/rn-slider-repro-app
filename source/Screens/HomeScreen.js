@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "stretch",
     justifyContent: "center",
+    backgroundColor: "white",
   },
   mainIntroText: {
     margin: 20,

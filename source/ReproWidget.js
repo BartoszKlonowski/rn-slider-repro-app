@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useQuery } from "react-query";
 import Loading from "./Components/Loading";
@@ -9,11 +9,14 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
       `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
     ).then((res) => res.json())
   );
+  const [isAnimating, setIsAnimating] = useState(true);
+  const loadingAnimationDurationMs = 1000;
 
-  if (isLoading) {
-    return (
-      <Loading />
-    );
+  if (isLoading || isAnimating) {
+    setTimeout(() => {
+      setIsAnimating(false);
+    }, loadingAnimationDurationMs);
+    return <Loading duration={loadingAnimationDurationMs} number={issueNumber}/>;
   }
 
   const getLabelFromData = () => {
@@ -64,6 +67,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderLeftWidth: 10,
     borderLeftColor: "blue",
+    width: "90%"
   },
   issueHeader: {
     fontWeight: "bold",
