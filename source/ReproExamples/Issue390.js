@@ -18,6 +18,7 @@ export function Issue390() {
         maximumValue={100}
         value={value}
         step={20}
+        tapToSeek
       />
       <Text>Current value: {value}</Text>
     </View>
