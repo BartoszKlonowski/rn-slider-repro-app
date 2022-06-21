@@ -1,9 +1,9 @@
-import Slider from '@react-native-community/slider';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import Slider from "@react-native-community/slider";
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 export function Issue390() {
-	const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0);
 
   const onChange = (value) => {
     setValue(value);
