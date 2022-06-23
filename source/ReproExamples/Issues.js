@@ -19,7 +19,7 @@ const screens = [
   { name: "345", component: Issue345 },
   { name: "227", component: Issue227 },
   { name: "377", component: Issue377 },
-  {name: "391", component: Issue391 },
+  { name: "391", component: Issue391 },
 ];
 
 export default screens;
