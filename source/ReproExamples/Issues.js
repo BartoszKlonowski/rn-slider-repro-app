@@ -7,6 +7,7 @@ import { Issue366 } from "./Issue366";
 import { Issue370 } from "./Issue370";
 import { Issue377 } from "./Issue377";
 import { Issue391 } from "./Issue391";
+import { Issue390 } from "./Issue390";
 import { Issue96 } from "./Issue96";
 
 const screens = [
@@ -20,6 +21,7 @@ const screens = [
   { name: "227", component: Issue227 },
   { name: "377", component: Issue377 },
   { name: "391", component: Issue391 },
+  { name: "390", component: Issue390 },
 ];
 
 export default screens;
