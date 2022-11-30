@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useQuery } from "react-query";
 import Loading from "./Components/Loading";
@@ -9,13 +9,9 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
       `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
     ).then((res) => res.json())
   );
-  const [isAnimating, setIsAnimating] = useState(true);
   const loadingAnimationDurationMs = 1000;
 
-  if (isLoading || isAnimating) {
-    setTimeout(() => {
-      setIsAnimating(false);
-    }, loadingAnimationDurationMs);
+  if (isLoading) {
     return (
       <Loading duration={loadingAnimationDurationMs} number={issueNumber} />
     );
