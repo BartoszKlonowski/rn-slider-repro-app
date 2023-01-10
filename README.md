@@ -7,7 +7,7 @@
         <img src="https://img.shields.io/github/license/BartoszKlonowski/rn-slider-repro-app?style=plastic" alt="RN Slider Repro App is released under the MIT license." />
     </a>
     <a href="https://github.com/BartoszKlonowski/rn-slider-repro-app/actions/workflows/rnSliderReproApp-CI.yml">
-        <img src="https://img.shields.io/github/workflow/status/BartoszKlonowski/rn-slider-repro-app/rnSliderReproApp-CI?label=Checks&style=plastic" alt="Unit Tests status" />
+        <img src="https://img.shields.io/github/actions/workflow/status/BartoszKlonowski/rn-slider-repro-app/rnSliderReproApp-CI.yml?label=Checks&style=plastic" alt="Unit Tests status" />
     </a>
 </p>
 
