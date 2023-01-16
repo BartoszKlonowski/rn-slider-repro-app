@@ -24,7 +24,7 @@ jobs:
         uses: actions/cache@v2.1.6
         with:
           path: ./node_modules
-          key: ${{ hashFiles('./package.json') }}
+          key: v2-${{ hashFiles('./package.json') }}
 
 
   verify:
@@ -43,7 +43,7 @@ jobs:
         uses: actions/cache@v2.1.6
         with:
           path: ./node_modules
-          key: ${{ hashFiles('./package.json') }}
+          key: v2-${{ hashFiles('./package.json') }}
 
       - name: Run ESLint on the sources
         run: npx eslint ./source/
@@ -65,7 +65,7 @@ jobs:
         uses: actions/cache@v2.1.6
         with:
           path: ./node_modules
-          key: ${{ hashFiles('./package.json') }}
+          key: v2-${{ hashFiles('./package.json') }}
 
       - name: Run unit tests
         run: npx jest
@@ -87,10 +87,7 @@ jobs:
         uses: actions/setup-node@v2
 
       - name: Pull the npm dependencies
-        uses: actions/cache@v2.1.6
-        with:
-          path: ./node_modules
-          key: ${{ hashFiles('./package.json') }}
+        run: npm install
 
       - name: Build the Windows OS app
         run: npx react-native run-windows --arch x64 --no-launch --no-deploy --logging
@@ -116,7 +113,7 @@ jobs:
         uses: actions/cache@v2.1.6
         with:
           path: ./node_modules
-          key: ${{ hashFiles('./package.json') }}
+          key: v2-${{ hashFiles('./package.json') }}
 
       - name: Install required dependencies on cache miss (npm)
         if: steps.android-cache.outputs.cache-hit != 'true'
