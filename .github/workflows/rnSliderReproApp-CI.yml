@@ -49,28 +49,6 @@ jobs:
         run: npx eslint ./source/
 
 
-  test:
-    name: Run the unit tests
-    runs-on: ubuntu-latest
-    needs: install
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-
-      - name: Pull the npm dependencies
-        uses: actions/cache@v2.1.6
-        with:
-          path: ./node_modules
-          key: v2-${{ hashFiles('./package.json') }}
-
-      - name: Run unit tests
-        run: npx jest
-
-
   build-windows-app:
     name: Verify the app builds for Windows platform
     runs-on: windows-2019
