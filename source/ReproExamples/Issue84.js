@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Slider from "@react-native-community/slider";
 
 export function Issue84() {
   return (
     <View style={styles.mainLayout}>
-      <Text style={styles.sliderIntroText}>
-        Slider with same tint colors:
-      </Text>
+      <Text style={styles.sliderIntroText}> Slider with same tint colors:</Text>
       <Slider
         minimumValue={0}
         maximumValue={100}
