@@ -13,8 +13,8 @@ export function Issue84() {
         maximumValue={100}
         step={1}
         value={50}
-        maximumTrackTintColor="#ABCDEF"
-        minimumTrackTintColor="#ABCDEF"
+        maximumTrackTintColor="#FF0000"
+        minimumTrackTintColor="#FF0000"
       />
       <Text style={styles.sliderIntroText}>
         Slider with different tint colors:
