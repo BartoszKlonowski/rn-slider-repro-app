@@ -13,8 +13,11 @@ export function Issue484() {
         maximumValue={100}
         value={0}
       />
-      <Button title={enabled ? 'Disable' : 'Enable'} onPress={() => setEnabled(!enabled)}/>
-      <Text>{`Slider is ${enabled ? 'enabled' : 'disabled'}`}</Text>
+      <Button
+        title={enabled ? "Disable" : "Enable"}
+        onPress={() => setEnabled(!enabled)}
+      />
+      <Text>{`Slider is ${enabled ? "enabled" : "disabled"}`}</Text>
     </View>
   );
 }
