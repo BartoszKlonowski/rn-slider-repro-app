@@ -11,7 +11,7 @@
     "windows": "react-native run-windows"
   },
   "dependencies": {
-    "@react-native-community/slider": "^4.4.0",
+    "@react-native-community/slider": "^4.4.1",
     "@react-navigation/native": "^6.1.2",
     "@react-navigation/native-stack": "^6.9.8",
     "react": "18.1.0",
