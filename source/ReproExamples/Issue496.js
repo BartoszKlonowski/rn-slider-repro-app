@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,22 +9,39 @@ import {
 import Slider from "@react-native-community/slider";
 
 const Issue496 = () => {
-  let sliderRef = useRef();
-  const [lowAlarm, setLowAlarm] = useState(0);
+  const initialValue = 50;
+  const maxValue = 100;
+  const minValue = 0;
+  const step = 1;
 
-  const onValueChange = (value) => {
-    if (value == "+") {
-      if (lowAlarm < 100) {
-        setLowAlarm(Math.round(lowAlarm + 1, 2));
+  const [lowAlarm, setLowAlarm] = useState(initialValue);
+
+  const onValueChange = (change) => {
+    if (change == "+") {
+      if (lowAlarm < maxValue) {
+        setLowAlarm(Math.round(lowAlarm + step, 2));
       }
-    } else if (value == "-") {
-      if (lowAlarm > 0) {
-        setLowAlarm(Math.round(lowAlarm - 1, 2));
+    } else if (change == "-") {
+      if (lowAlarm > minValue) {
+        setLowAlarm(Math.round(lowAlarm - step, 2));
       }
-    } else {
-      setLowAlarm(Math.round(value, 2));
     }
   };
+
+  return (
+    <AlarmRangeSelector
+      onValueChange={onValueChange}
+      setLowAlarm={setLowAlarm}
+      minValue={0}
+      maxValue={100}
+      step={1}
+      value={lowAlarm}
+    />
+  );
+};
+
+const AlarmRangeSelector = (props) => {
+  const { minValue, maxValue, step, onValueChange, value, setLowAlarm } = props;
 
   return (
     <View style={styles.textCon}>
@@ -39,19 +56,18 @@ const Issue496 = () => {
       </TouchableOpacity>
       <View style={styles.sliderLayout}>
         <View style={styles.minLabel}>
-          <Text style={{ color: "black" }}>{0}</Text>
+          <Text style={{ color: "black" }}>{minValue}</Text>
         </View>
         <View style={styles.maxLabel}>
-          <Text style={{ color: "black" }}>{100}</Text>
+          <Text style={{ color: "black" }}>{maxValue}</Text>
         </View>
         <Slider
-          ref={sliderRef}
           style={styles.alarmSlider}
-          minimumValue={0}
-          maximumValue={100}
-          step={1}
-          onValueChange={onValueChange}
-          value={lowAlarm}
+          minimumValue={minValue}
+          maximumValue={maxValue}
+          onSlidingComplete={(slidingValue) => setLowAlarm(slidingValue)}
+          step={step}
+          value={value}
           minimumTrackTintColor={"green"}
           maximumTrackTintColor={"brown"}
           thumbTintColor={"black"}
