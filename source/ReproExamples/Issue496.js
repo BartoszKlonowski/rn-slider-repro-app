@@ -16,7 +16,7 @@ const Issue496 = () => {
 
   const [lowAlarm, setLowAlarm] = useState(initialValue);
 
-  const onValueChange = (change) => {
+  const onProgrammaticValueChange = (change) => {
     if (change == "+") {
       if (lowAlarm < maxValue) {
         setLowAlarm(Math.round(lowAlarm + step, 2));
@@ -28,9 +28,14 @@ const Issue496 = () => {
     }
   };
 
+  const onManualValueChange = (currentValue) => {
+    setLowAlarm(currentValue);
+  };
+
   return (
     <AlarmRangeSelector
-      onValueChange={onValueChange}
+      onProgrammaticValueChange={onProgrammaticValueChange}
+      onManualValueChange={onManualValueChange}
       setLowAlarm={setLowAlarm}
       minValue={0}
       maxValue={100}
@@ -41,7 +46,15 @@ const Issue496 = () => {
 };
 
 const AlarmRangeSelector = (props) => {
-  const { minValue, maxValue, step, onValueChange, value, setLowAlarm } = props;
+  const {
+    minValue,
+    maxValue,
+    step,
+    onProgrammaticValueChange,
+    onManualValueChange,
+    value,
+    setLowAlarm,
+  } = props;
 
   return (
     <View style={styles.textCon}>
@@ -49,7 +62,7 @@ const AlarmRangeSelector = (props) => {
         accessibilityRole="button"
         style={styles.minMaxLabel}
         onPress={() => {
-          onValueChange("-");
+          onProgrammaticValueChange("-");
         }}
       >
         <Text>{"-"}</Text>
@@ -66,18 +79,20 @@ const AlarmRangeSelector = (props) => {
           minimumValue={minValue}
           maximumValue={maxValue}
           onSlidingComplete={(slidingValue) => setLowAlarm(slidingValue)}
+          onValueChange={(val) => onManualValueChange(val)}
           step={step}
           value={value}
           minimumTrackTintColor={"green"}
           maximumTrackTintColor={"brown"}
           thumbTintColor={"black"}
         />
+        <Text>{value}</Text>
       </View>
       <TouchableOpacity
         accessibilityRole="button"
         style={styles.minMaxLabel}
         onPress={() => {
-          onValueChange("+");
+          onProgrammaticValueChange("+");
         }}
       >
         <Text>{"+"}</Text>
