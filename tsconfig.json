@@ -9,6 +9,6 @@
     "jsx": "react",
     "moduleResolution": "node"
   },
-  "include": ["source/ReproExamples/Issue321.tsx"],
+  "include": ["source/ReproExamples/Issue321.tsx", "source/ReproExamples/Issue503.tsx"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
