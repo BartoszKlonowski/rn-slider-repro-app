@@ -32,6 +32,7 @@ export const Issue514 = () => {
           flexDirection: "row",
           top: -25,
           zIndex: 2,
+          paddingHorizontal: 11,
         }}
       >
         {options.map((i, index) => {
