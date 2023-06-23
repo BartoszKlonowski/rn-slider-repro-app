@@ -38,7 +38,10 @@ export const Issue514 = () => {
           return (
             <Fragment key={index}>
               <View style={{ alignItems: "center" }}>
-                <SliderTrackMark key={`${index}-SliderTrackMark`} isTrue={value === i} />
+                <SliderTrackMark
+                  key={`${index}-SliderTrackMark`}
+                  isTrue={value === i}
+                />
                 <Paragraph i={i} key={`${index}-Paragraph`} />
               </View>
             </Fragment>
