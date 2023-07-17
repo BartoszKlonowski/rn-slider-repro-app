@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useQuery } from "react-query";
 import Loading from "./Components/Loading";
 
-export const ReproWidget = ({ navigation, issueNumber }) => {
+export const ReproWidget = ({ navigation, issueNumber, openOnly }) => {
   const { isLoading, data } = useQuery(issueNumber, () =>
     fetch(
       `https://api.github.com/repos/callstack/react-native-slider/issues/${issueNumber}`
@@ -31,7 +31,7 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
 
   const platform = getLabelFromData();
 
-  return (
+  return (openOnly && data.state === "open") || !openOnly ? (
     <TouchableOpacity
       accessibilityRole="button"
       style={[
@@ -55,7 +55,7 @@ export const ReproWidget = ({ navigation, issueNumber }) => {
         <Text style={styles.issueBrief}>Platform: {platform}</Text>
       </View>
     </TouchableOpacity>
-  );
+  ) : null;
 };
 
 const styles = StyleSheet.create({
