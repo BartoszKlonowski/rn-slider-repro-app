@@ -12,7 +12,12 @@ export const Issue514 = () => {
   const [value, setValue] = useState(0);
   const options = Array.from({ length: 7 / 1 + 1 }, (_, index) => index * 1);
   return (
-    <View>
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Slider
         minimumValue={0}
         maximumValue={7}
@@ -21,24 +26,23 @@ export const Issue514 = () => {
         onValueChange={setValue}
         minimumTrackTintColor={"#11FF11"}
         maximumTrackTintColor={"#11FF11"}
-        style={{ zIndex: 1 }}
+        style={{ zIndex: 1, width: 312 }}
         // eslint-disable-next-line
         thumbImage={require("../ReproAssets/Issue346_ThumbImage.png")}
       />
       <View
         pointerEvents="none"
         style={{
-          justifyContent: "space-between",
+          width: 320,
           flexDirection: "row",
           top: -25,
           zIndex: 2,
-          paddingHorizontal: 11,
         }}
       >
         {options.map((i, index) => {
           return (
             <Fragment key={index}>
-              <View style={{ alignItems: "center" }}>
+              <View style={{ alignItems: "center", width: 40 }}>
                 <SliderTrackMark
                   key={`${index}-SliderTrackMark`}
                   isTrue={value === i}
