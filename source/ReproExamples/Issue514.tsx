@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import React, { Fragment } from "react";
 
 import Slider from "@react-native-community/slider";
@@ -6,6 +6,7 @@ import { useState } from "react";
 
 interface TrackMarksProps {
   isTrue: boolean;
+  image?: JSX.Element;
 }
 
 export const Issue514 = () => {
@@ -27,8 +28,9 @@ export const Issue514 = () => {
         minimumTrackTintColor={"#11FF11"}
         maximumTrackTintColor={"#11FF11"}
         style={{ zIndex: 1, width: 312 }}
+        thumbTintColor="transparent"
         // eslint-disable-next-line
-        thumbImage={require("../ReproAssets/Issue346_ThumbImage.png")}
+        thumbImage={undefined}
       />
       <View
         pointerEvents="none"
@@ -57,10 +59,14 @@ export const Issue514 = () => {
   );
 };
 
-function SliderTrackMark({ isTrue }: TrackMarksProps) {
+function SliderTrackMark({ isTrue, image }: TrackMarksProps) {
   return isTrue ? (
-    <View style={styles.outerTrue}>
+    <View style={image ? styles.outerTrue : styles.outerImage}>
+      {image ? <Image
+        source={require("./../ReproAssets/Issue346_ThumbImage.png")}
+      /> :
       <View style={styles.innerTrue} />
+      }
     </View>
   ) : (
     <View style={styles.outer}>
@@ -91,6 +97,10 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 10,
     backgroundColor: "#0F0FFF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  outerImage: {
     justifyContent: "center",
     alignItems: "center",
   },
