@@ -1,7 +1,7 @@
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, ImageURISource } from "react-native";
 import React, { Fragment } from "react";
 
-import Slider from "@react-native-community/slider";
+import Slider, { SliderProps } from "@react-native-community/slider";
 import { useState } from "react";
 
 interface TrackMarksProps {
@@ -9,33 +9,41 @@ interface TrackMarksProps {
   image?: boolean;
 }
 
-export const Issue514 = () => {
-  const [value, setValue] = useState(0);
-  const options = Array.from({ length: 7 / 1 + 1 }, (_, index) => index * 1);
+interface CustomSliderProps extends SliderProps {
+  image?: ImageURISource;
+}
+
+const CustomizedSlider = (props: CustomSliderProps) => {
+  const [currentValue, setCurrentValue] = useState(props.value);
+  const [width, setWidth] = useState(0);
+  const options = Array.from(
+    { length: (props.maximumValue - props.minimumValue) / props.step + 1 },
+    (_, index) => index
+  );
   return (
     <View
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
+      onLayout={(event) => {
+        setWidth(event.nativeEvent.layout.width);
       }}
+      style={[{ width: "100%", height: "100%" }, props.style]}
     >
       <Slider
-        minimumValue={0}
-        maximumValue={7}
-        step={1}
-        tapToSeek
-        onValueChange={setValue}
-        minimumTrackTintColor={"#11FF11"}
-        maximumTrackTintColor={"#11FF11"}
-        style={{ zIndex: 1, width: 312 }}
-        thumbTintColor="transparent"
+        {...props}
+        onValueChange={(value) => {
+          setCurrentValue(value);
+          if (props.onValueChange) {
+            props.onValueChange(value);
+          }
+        }}
+        style={{ zIndex: 1, width: width }}
+        thumbTintColor={props.thumbTintColor ?? "transparent"}
         // eslint-disable-next-line
         thumbImage={undefined}
       />
       <View
         pointerEvents="none"
         style={{
-          width: 320,
+          width: width - options.length,
           flexDirection: "row",
           top: -25,
           zIndex: 2,
@@ -44,11 +52,13 @@ export const Issue514 = () => {
         {options.map((i, index) => {
           return (
             <Fragment key={index}>
-              <View style={{ alignItems: "center", width: 40 }}>
+              <View
+                style={{ alignItems: "center", width: width / options.length }}
+              >
                 <SliderTrackMark
                   key={`${index}-SliderTrackMark`}
-                  isTrue={value === i}
-                  image={value === i}
+                  isTrue={currentValue === i}
+                  image={currentValue === i}
                 />
                 <Paragraph i={i} key={`${index}-Paragraph`} />
               </View>
@@ -60,14 +70,42 @@ export const Issue514 = () => {
   );
 };
 
+export const Issue514 = () => {
+  const [value, setValue] = useState(0);
+  return (
+    <View
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CustomizedSlider
+        minimumValue={0}
+        maximumValue={5}
+        step={1}
+        tapToSeek
+        onValueChange={setValue}
+        minimumTrackTintColor={"#11FF11"}
+        maximumTrackTintColor={"#11FF11"}
+        style={{ zIndex: 1, width: "100%" }}
+      />
+    </View>
+  );
+};
+
 function SliderTrackMark({ isTrue, image }: TrackMarksProps) {
   return isTrue ? (
     <View style={image ? styles.outerTrue : styles.outerImage}>
-      {image ? <Image
-        source={require("./../ReproAssets/Issue346_ThumbImage.png")}
-      /> :
-      <View style={styles.innerTrue} />
-      }
+      {image ? (
+        <Image
+          source={
+            require("./../ReproAssets/Issue346_ThumbImage.png") as ImageURISource
+          }
+          accessibilityIgnoresInvertColors
+        />
+      ) : (
+        <View style={styles.innerTrue} />
+      )}
     </View>
   ) : (
     <View style={styles.outer}>
