@@ -6,7 +6,7 @@ import { useState } from "react";
 
 interface TrackMarksProps {
   isTrue: boolean;
-  image?: JSX.Element;
+  image?: boolean;
 }
 
 export const Issue514 = () => {
@@ -48,6 +48,7 @@ export const Issue514 = () => {
                 <SliderTrackMark
                   key={`${index}-SliderTrackMark`}
                   isTrue={value === i}
+                  image={value === i}
                 />
                 <Paragraph i={i} key={`${index}-Paragraph`} />
               </View>
