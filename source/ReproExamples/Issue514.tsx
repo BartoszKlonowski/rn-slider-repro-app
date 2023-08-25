@@ -7,6 +7,7 @@ import { useState } from "react";
 interface TrackMarksProps {
   isTrue: boolean;
   image?: boolean;
+  thumbImage?: ImageURISource;
 }
 
 interface CustomSliderProps extends SliderProps {
@@ -14,18 +15,21 @@ interface CustomSliderProps extends SliderProps {
 }
 
 const CustomizedSlider = (props: CustomSliderProps) => {
-  const [currentValue, setCurrentValue] = useState(props.value ?? props.minimumValue);
+  const [currentValue, setCurrentValue] = useState(
+    props.value ?? props.minimumValue
+  );
   const [width, setWidth] = useState(0);
   const options = Array.from(
     { length: (props.maximumValue - props.minimumValue) / props.step + 1 },
     (_, index) => index
   );
+
   return (
     <View
       onLayout={(event) => {
         setWidth(event.nativeEvent.layout.width);
       }}
-      style={[{ width: "100%", height: "100%" }, props.style]}
+      style={[{ zIndex: 1, width: "100%", height: "100%" }, props.style]}
     >
       <Slider
         {...props}
@@ -36,7 +40,7 @@ const CustomizedSlider = (props: CustomSliderProps) => {
           }
         }}
         style={{ zIndex: 1, width: width }}
-        thumbTintColor={props.thumbTintColor ?? "transparent"}
+        thumbTintColor={props.thumbImage ? "transparent" : props.thumbTintColor}
         // eslint-disable-next-line
         thumbImage={undefined}
       />
@@ -59,6 +63,7 @@ const CustomizedSlider = (props: CustomSliderProps) => {
                   key={`${index}-SliderTrackMark`}
                   isTrue={currentValue === i}
                   image={currentValue === i}
+                  thumbImage={props.thumbImage}
                 />
                 <Paragraph i={i} key={`${index}-Paragraph`} />
               </View>
@@ -71,7 +76,6 @@ const CustomizedSlider = (props: CustomSliderProps) => {
 };
 
 export const Issue514 = () => {
-  const [value, setValue] = useState(0);
   return (
     <View
       style={{
@@ -81,28 +85,21 @@ export const Issue514 = () => {
     >
       <CustomizedSlider
         minimumValue={0}
-        maximumValue={5}
+        maximumValue={10}
         step={1}
         tapToSeek
-        onValueChange={setValue}
         minimumTrackTintColor={"#11FF11"}
         maximumTrackTintColor={"#11FF11"}
-        style={{ zIndex: 1, width: "100%" }}
       />
     </View>
   );
 };
 
-function SliderTrackMark({ isTrue, image }: TrackMarksProps) {
+function SliderTrackMark({ isTrue, image, thumbImage }: TrackMarksProps) {
   return isTrue ? (
     <View style={image ? styles.outerTrue : styles.outerImage}>
       {image ? (
-        <Image
-          source={
-            require("./../ReproAssets/Issue346_ThumbImage.png") as ImageURISource
-          }
-          accessibilityIgnoresInvertColors
-        />
+        <Image source={thumbImage} accessibilityIgnoresInvertColors />
       ) : (
         <View style={styles.innerTrue} />
       )}
