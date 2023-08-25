@@ -14,7 +14,7 @@ interface CustomSliderProps extends SliderProps {
 }
 
 const CustomizedSlider = (props: CustomSliderProps) => {
-  const [currentValue, setCurrentValue] = useState(props.value);
+  const [currentValue, setCurrentValue] = useState(props.value ?? props.minimumValue);
   const [width, setWidth] = useState(0);
   const options = Array.from(
     { length: (props.maximumValue - props.minimumValue) / props.step + 1 },
